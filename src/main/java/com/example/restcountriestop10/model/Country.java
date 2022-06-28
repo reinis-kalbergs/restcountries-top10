@@ -13,12 +13,8 @@ public class Country {
     private Long population;
     private Integer area;
     private Currency[] currencies;
-    private Double populationDensity;
 
-    public Double getPopulationDensity() {
-        if (this.population == null || this.area == null) {
-            return null;
-        }
-        return (double) this.population / this.area;
+    public Boolean filterCountries() {
+        return this.population != null && this.area != null;
     }
 }

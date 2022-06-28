@@ -1,6 +1,7 @@
 package com.example.restcountriestop10.service;
 
 import com.example.restcountriestop10.model.Country;
+import com.example.restcountriestop10.model.CountryWithPopDensity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,8 @@ public class MainCountriesService {
 
     public List<Country> getLargestPopulation() {
         return Arrays.stream(abstractCountriesService.getAllEuCountries())
-                .filter((country) -> (country.getPopulationDensity() != null))
+                .filter(Country::filterCountries)
+                .map(CountryWithPopDensity::new)
                 .sorted(Comparator.comparing(Country::getPopulation).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
@@ -25,7 +27,8 @@ public class MainCountriesService {
 
     public List<Country> getLargestArea() {
         return Arrays.stream(abstractCountriesService.getAllEuCountries())
-                .filter((country) -> (country.getPopulationDensity() != null))
+                .filter(Country::filterCountries)
+                .map(CountryWithPopDensity::new)
                 .sorted(Comparator.comparing(Country::getArea).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
@@ -33,8 +36,9 @@ public class MainCountriesService {
 
     public List<Country> getLargestPopulationDensity() {
         return Arrays.stream(abstractCountriesService.getAllEuCountries())
-                .filter((country) -> (country.getPopulationDensity() != null))
-                .sorted(Comparator.comparing(Country::getPopulationDensity).reversed())
+                .filter(Country::filterCountries)
+                .map(CountryWithPopDensity::new)
+                .sorted(Comparator.comparing(CountryWithPopDensity::getPopulationDensity).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
     }

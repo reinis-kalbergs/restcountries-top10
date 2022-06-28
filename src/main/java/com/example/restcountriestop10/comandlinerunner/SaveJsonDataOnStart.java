@@ -25,17 +25,13 @@ public class SaveJsonDataOnStart implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         List<Country> countriesToSave = new ArrayList<>(Arrays.asList(countriesJsonService.getAllEuCountriesFromRest()));
-        removeInvalidData(countriesToSave);
+        countriesToSave = removeInvalidData(countriesToSave);
         objectMapper.writeValue(new File(FULL_PATH), countriesToSave);
     }
 
-    private void removeInvalidData(List<Country> countriesToSave) {
-        List<Country> countriesToRemove = new ArrayList<>();
-        for (Country country : countriesToSave) {
-            if (country.getArea() == null) {
-                countriesToRemove.add(country);
-            }
-        }
-        countriesToSave.removeAll(countriesToRemove);
+    private List<Country> removeInvalidData(List<Country> countries) {
+        return countries.stream()
+                .filter(country -> country.getArea() != null)
+                .toList();
     }
 }
