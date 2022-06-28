@@ -13,7 +13,7 @@ import java.io.File;
 
 @Service
 @ConditionalOnProperty(prefix = "top10countries", name = "retrieve-from", havingValue = "json")
-public class CountriesJsonService extends AllCountriesGetter {
+public class CountriesJsonService extends AbstractCountriesService {
 
     private final String FULL_PATH = System.getProperty("user.dir") + "\\src\\main\\resources\\data\\EuCountries.json";
     private final ObjectMapper objectMapper;

@@ -9,13 +9,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Country {
     private String name;
+    private String capital;
     private Long population;
-    private Boolean independent;
     private Integer area;
+    private Currency[] currencies;
     private Double populationDensity;
 
-    public double getPopulationDensity() {
-        //Spring automatically adds this to the outgoing JSON object
+    public Double getPopulationDensity() {
+        if (this.population == null || this.area == null) {
+            return null;
+        }
         return (double) this.population / this.area;
     }
 }

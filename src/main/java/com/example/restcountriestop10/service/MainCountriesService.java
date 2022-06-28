@@ -13,27 +13,27 @@ import java.util.stream.Collectors;
 @Service
 public class MainCountriesService {
 
-    private final AllCountriesGetter allCountriesGetter;
+    private final AbstractCountriesService abstractCountriesService;
 
     public List<Country> getLargestPopulation() {
-        return Arrays.stream(allCountriesGetter.getAllEuCountries())
-                .filter(Country::getIndependent)
+        return Arrays.stream(abstractCountriesService.getAllEuCountries())
+                .filter((country) -> (country.getPopulationDensity() != null))
                 .sorted(Comparator.comparing(Country::getPopulation).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
     }
 
     public List<Country> getLargestArea() {
-        return Arrays.stream(allCountriesGetter.getAllEuCountries())
-                .filter(Country::getIndependent)
+        return Arrays.stream(abstractCountriesService.getAllEuCountries())
+                .filter((country) -> (country.getPopulationDensity() != null))
                 .sorted(Comparator.comparing(Country::getArea).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
     }
 
     public List<Country> getLargestPopulationDensity() {
-        return Arrays.stream(allCountriesGetter.getAllEuCountries())
-                .filter(Country::getIndependent)
+        return Arrays.stream(abstractCountriesService.getAllEuCountries())
+                .filter((country) -> (country.getPopulationDensity() != null))
                 .sorted(Comparator.comparing(Country::getPopulationDensity).reversed())
                 .limit(10)
                 .collect(Collectors.toList());

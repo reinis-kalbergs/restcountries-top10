@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 @ConditionalOnProperty(prefix = "top10countries", name = "retrieve-from", havingValue = "restapi")
-public class CountriesRestService extends AllCountriesGetter {
+public class CountriesRestService extends AbstractCountriesService {
 
     public CountriesRestService(Environment environment, RestTemplate restTemplate) {
         super(environment, restTemplate);

@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 @RequiredArgsConstructor
-public abstract class AllCountriesGetter {
+public abstract class AbstractCountriesService {
 
     private final Environment environment;
     private final RestTemplate restTemplate;
