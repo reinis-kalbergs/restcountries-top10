@@ -1,4 +1,4 @@
-package com.example.restcountriestop10.service;
+package com.example.restcountriestop10.service.getcountriesservice;
 
 import com.example.restcountriestop10.model.Country;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public abstract class AbstractCountriesService {
     private final Environment environment;
     private final RestTemplate restTemplate;
 
-    abstract Country[] getAllEuCountries();
+    public abstract Country[] getAllEuCountries();
 
     public Country[] getAllEuCountriesFromRest() {
         try {

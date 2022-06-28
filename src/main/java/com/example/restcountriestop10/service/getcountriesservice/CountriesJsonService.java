@@ -1,4 +1,4 @@
-package com.example.restcountriestop10.service;
+package com.example.restcountriestop10.service.getcountriesservice;
 
 import com.example.restcountriestop10.model.Country;
 import com.fasterxml.jackson.databind.ObjectMapper;

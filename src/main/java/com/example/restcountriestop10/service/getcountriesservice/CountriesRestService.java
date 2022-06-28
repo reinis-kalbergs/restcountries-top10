@@ -1,4 +1,4 @@
-package com.example.restcountriestop10.service;
+package com.example.restcountriestop10.service.getcountriesservice;
 
 import com.example.restcountriestop10.model.Country;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,7 +15,7 @@ public class CountriesRestService extends AbstractCountriesService {
     }
 
     @Override
-    Country[] getAllEuCountries() {
+    public Country[] getAllEuCountries() {
         return getAllEuCountriesFromRest();
     }
 }

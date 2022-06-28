@@ -1,7 +1,7 @@
 package com.example.restcountriestop10.comandlinerunner;
 
 import com.example.restcountriestop10.model.Country;
-import com.example.restcountriestop10.service.CountriesJsonService;
+import com.example.restcountriestop10.service.getcountriesservice.CountriesJsonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;

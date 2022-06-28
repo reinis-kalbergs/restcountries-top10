@@ -1,6 +1,7 @@
 package com.example.restcountriestop10.service;
 
 import com.example.restcountriestop10.model.Country;
+import com.example.restcountriestop10.service.getcountriesservice.CountriesRestService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
