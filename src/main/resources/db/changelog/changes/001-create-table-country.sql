@@ -9,5 +9,5 @@ CREATE TABLE country
     population   BIGINT,
     area         INTEGER,
     last_updated TIMESTAMP WITHOUT TIME ZONE,
-    CONSTRAINT pk_country PRIMARY KEY (name)
+    CONSTRAINT pk_country_in_database PRIMARY KEY (name)
 );

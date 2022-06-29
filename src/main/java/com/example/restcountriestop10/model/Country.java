@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@MappedSuperclass
+/*@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)*/
 public class Country {
     @Id
     private String name;
@@ -18,17 +19,20 @@ public class Country {
     private Long population;
     private Integer area;
 
-    /*@ManyToMany
-    @JoinColumn(name = "currency_code")
-    private List<Currency> currencies;*/
+    /*    @ManyToMany
+        @JoinTable(
+                name = "country_currencies",
+                joinColumns = @JoinColumn(name = "name"),
+                inverseJoinColumns = @JoinColumn(name = "code"))*/
+    private Set<Currency> currencies;
 
-    public Country(CountryInDatabase countryInDatabase) {
+    public Country(CountryInDatabaseV2 countryInDatabase) {
         this.name = countryInDatabase.getName();
         this.capital = countryInDatabase.getCapital();
         this.population = countryInDatabase.getPopulation();
         this.area = countryInDatabase.getArea();
+        this.currencies = countryInDatabase.getCurrencies();
     }
-
 
     public Boolean filterCountries() {
         return this.population != null && this.area != null;

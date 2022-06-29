@@ -5,33 +5,42 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
-//@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-//@Table(name = "country_in_database")
-public class CountryInDatabase extends Country {
+@NoArgsConstructor
+@Entity
+@Table(name = "country")
+public class CountryInDatabaseV2 {
+    @Id
+    private String name;
+    private String capital;
+    private Long population;
+    private Integer area;
+
+    @UpdateTimestamp
+    private LocalDateTime lastUpdated;
 
     @ManyToMany
     @JoinTable(
             name = "country_currencies",
             joinColumns = @JoinColumn(name = "name"),
             inverseJoinColumns = @JoinColumn(name = "code"))
-    private Set<Currency> currencies;
+    private Set<Currency> currencies = new HashSet<>();
 
-    @UpdateTimestamp
-    private LocalDateTime lastUpdated;
-
-    public CountryInDatabase(Country country) {
+    public CountryInDatabaseV2(Country country) {
         this.setName(country.getName());
         this.setCapital(country.getCapital());
         this.setPopulation(country.getPopulation());
         this.setArea(country.getArea());
+        this.setCurrencies(country.getCurrencies());
+    }
+
+    public void addCurrency(Currency currency) {
+        currencies.add(currency);
     }
 }
