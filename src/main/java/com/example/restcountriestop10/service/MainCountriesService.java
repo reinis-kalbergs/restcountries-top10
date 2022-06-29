@@ -19,7 +19,6 @@ public class MainCountriesService {
 
     public List<Country> getLargestPopulation() {
         return Arrays.stream(abstractCountriesService.getAllEuCountries())
-                .filter(Country::filterCountries)
                 .map(CountryWithPopDensity::new)
                 .sorted(Comparator.comparing(Country::getPopulation).reversed())
                 .limit(10)
@@ -28,7 +27,6 @@ public class MainCountriesService {
 
     public List<Country> getLargestArea() {
         return Arrays.stream(abstractCountriesService.getAllEuCountries())
-                .filter(Country::filterCountries)
                 .map(CountryWithPopDensity::new)
                 .sorted(Comparator.comparing(Country::getArea).reversed())
                 .limit(10)
@@ -37,7 +35,6 @@ public class MainCountriesService {
 
     public List<Country> getLargestPopulationDensity() {
         return Arrays.stream(abstractCountriesService.getAllEuCountries())
-                .filter(Country::filterCountries)
                 .map(CountryWithPopDensity::new)
                 .sorted(Comparator.comparing(CountryWithPopDensity::getPopulationDensity).reversed())
                 .limit(10)

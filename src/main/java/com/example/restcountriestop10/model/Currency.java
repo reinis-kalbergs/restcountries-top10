@@ -12,10 +12,8 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Entity
 public class Currency {
-
     @Id
     private String code;
     private String name;
     private String symbol;
-
 }

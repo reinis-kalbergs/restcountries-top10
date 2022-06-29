@@ -1,7 +1,7 @@
 package com.example.restcountriestop10.service.getcountriesservice;
 
 import com.example.restcountriestop10.model.Country;
-import com.example.restcountriestop10.model.CountryInDatabaseV2;
+import com.example.restcountriestop10.model.CountryInDatabase;
 import com.example.restcountriestop10.repository.CountryRepository;
 import com.example.restcountriestop10.repository.CurrencyRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -23,10 +23,8 @@ public class CountriesDatabaseService extends AbstractCountriesService {
 
     private final CurrencyRepository currencyRepository;
 
-    //todo: add currency table
-    public CountriesDatabaseService(Environment environment, RestTemplate restTemplate, CountryRepository countryRepository
-            , CurrencyRepository currencyRepository
-    ) {
+    public CountriesDatabaseService(Environment environment, RestTemplate restTemplate,
+                                    CountryRepository countryRepository, CurrencyRepository currencyRepository) {
         super(environment, restTemplate);
         this.countryRepository = countryRepository;
         this.currencyRepository = currencyRepository;
@@ -34,15 +32,16 @@ public class CountriesDatabaseService extends AbstractCountriesService {
 
     @Override
     public Country[] getAllEuCountries() {
-        if (dataIsOld()) {
+        if (dataIsStale()) {
             saveCountriesFromApi();
         }
-        return countryRepository.findAll().stream()
+        return countryRepository.findAll()
+                .stream()
                 .map(Country::new)
                 .toArray(Country[]::new);
     }
 
-    private boolean dataIsOld() {
+    private boolean dataIsStale() {
         if (countryRepository.count() < 1) {
             return true;
         }
@@ -55,8 +54,8 @@ public class CountriesDatabaseService extends AbstractCountriesService {
         for (Country country : countries) {
             currencyRepository.saveAll(country.getCurrencies());
         }
-        List<CountryInDatabaseV2> countriesToSave = Arrays.stream(countries)
-                .map(CountryInDatabaseV2::new)
+        List<CountryInDatabase> countriesToSave = Arrays.stream(countries)
+                .map(CountryInDatabase::new)
                 .toList();
         countryRepository.saveAll(countriesToSave);
     }

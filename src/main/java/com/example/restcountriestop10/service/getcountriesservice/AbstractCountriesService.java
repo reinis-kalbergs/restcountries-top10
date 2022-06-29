@@ -8,6 +8,9 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 @RequiredArgsConstructor
 public abstract class AbstractCountriesService {
 
@@ -26,6 +29,8 @@ public abstract class AbstractCountriesService {
 
     private Country[] retrieveEuCountries() {
         final String URL_EU_COUNTRIES = environment.getProperty("restcountries.v2.url") + "/regionalbloc/eu";
-        return restTemplate.getForObject(URL_EU_COUNTRIES, Country[].class);
+        return Arrays.stream(Objects.requireNonNull(restTemplate.getForObject(URL_EU_COUNTRIES, Country[].class)))
+                .filter(Country::filterCountriesWithoutAreaOrPopulation)
+                .toArray(Country[]::new);
     }
 }

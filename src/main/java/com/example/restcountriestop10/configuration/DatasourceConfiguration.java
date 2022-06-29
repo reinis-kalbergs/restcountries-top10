@@ -10,7 +10,6 @@ import javax.sql.DataSource;
 @Configuration
 @ConditionalOnProperty(prefix = "top10countries", name = "retrieve-from", havingValue = "database")
 public class DatasourceConfiguration {
-
     @Bean
     public DataSource getDatabaseDataSource() {
         return DataSourceBuilder.create()
