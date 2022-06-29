@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,22 +22,32 @@ public class CountriesDatabaseService extends AbstractCountriesService {
 
     //private final CurrencyRepository currencyRepository;
     //todo: add currency table
-    public CountriesDatabaseService(Environment environment, RestTemplate restTemplate, CountryRepository countryRepository) {
+    public CountriesDatabaseService(Environment environment, RestTemplate restTemplate, CountryRepository countryRepository/*, CurrencyRepository currencyRepository*/) {
         super(environment, restTemplate);
         this.countryRepository = countryRepository;
+        //this.currencyRepository = currencyRepository;
     }
 
     @Override
     public Country[] getAllEuCountries() {
-        saveCountriesFromApi();
+        if (dataIsOld()) {
+            saveCountriesFromApi();
+        }
         return countryRepository.findAll().stream()
                 .map(Country::new)
                 .toArray(Country[]::new);
     }
 
+    private boolean dataIsOld() {
+        if (countryRepository.count() < 1) {
+            return true;
+        }
+        LocalDateTime dateTimeADayAgo = LocalDateTime.now().minusDays(1);
+        return countryRepository.existsByLastUpdatedBefore(dateTimeADayAgo);
+    }
+
     private void saveCountriesFromApi() {
-        Country[] countries = getAllEuCountriesFromRest();
-        List<CountryInDatabase> countriesToSave = Arrays.stream(countries)
+        List<CountryInDatabase> countriesToSave = Arrays.stream(getAllEuCountriesFromRest())
                 .map(CountryInDatabase::new)
                 .toList();
         countryRepository.saveAll(countriesToSave);

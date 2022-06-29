@@ -3,7 +3,7 @@ package com.example.restcountriestop10.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name = "country")
 public class CountryInDatabase extends Country {
 
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime lastUpdated;
 
     public CountryInDatabase(Country country) {
