@@ -16,7 +16,7 @@ public class DatasourceConfiguration {
         return DataSourceBuilder.create()
                 .driverClassName("org.h2.Driver")
                 .url("jdbc:h2:mem:mydb")
-                .username("user")
+                .username("sa")
                 .password("")
                 .build();
     }

@@ -16,6 +16,7 @@ public class CountryWithPopDensity extends Country {
         this.setPopulation(country.getPopulation());
         this.setArea(country.getArea());
         //this.setCurrencies(country.getCurrencies());
+        //todo: add currency back
     }
 
     public Double getPopulationDensity() {
