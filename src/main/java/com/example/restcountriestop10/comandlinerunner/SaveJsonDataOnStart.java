@@ -1,7 +1,7 @@
 package com.example.restcountriestop10.comandlinerunner;
 
 import com.example.restcountriestop10.model.Country;
-import com.example.restcountriestop10.service.CountriesJsonService;
+import com.example.restcountriestop10.service.getcountriesservice.CountriesJsonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +19,7 @@ import java.util.List;
 public class SaveJsonDataOnStart implements CommandLineRunner {
 
     private final CountriesJsonService countriesJsonService;
-    private final String FULL_PATH = System.getProperty("user.dir") + "\\src\\main\\resources\\data\\EuCountries.json";
+    private final String FULL_PATH = "./src/main/resources/data/EuCountries.json";
     private final ObjectMapper objectMapper;
 
     @Override

@@ -1,6 +1,7 @@
-package com.example.restcountriestop10.service;
+package com.example.restcountriestop10.service.getcountriesservice;
 
 import com.example.restcountriestop10.model.Country;
+import com.example.restcountriestop10.model.Currency;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,7 +11,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @ExtendWith(MockitoExtension.class)
 public class CountriesRestServiceTest {
@@ -28,9 +31,12 @@ public class CountriesRestServiceTest {
 
     @Test
     void shouldReceiveCorrectUrl() {
+        final Currency euro = new Currency("EUR", "Euro", "€");
+        final Set<Currency> countryCurrencies = new HashSet<>(List.of(euro));
+        Country[] country = {new Country("name", null, 1L, 1, countryCurrencies)};
+
         Mockito.when(environment.getProperty(Mockito.anyString())).thenReturn("https://restcountries.com/v2");
-        Mockito.when(restTemplate.getForObject(urlCaptor.capture(), Mockito.any()))
-                .thenReturn(null);
+        Mockito.when(restTemplate.getForObject(urlCaptor.capture(), Mockito.any())).thenReturn(country);
 
         countriesRestService.getAllEuCountries();
         List<String> result = urlCaptor.getAllValues();
@@ -40,8 +46,8 @@ public class CountriesRestServiceTest {
 
     @Test
     void shouldReturnCountries() {
-        Country testCountry1 = new Country("name", "capital", 1L, 1, null);
-        Country testCountry2 = new Country("name", "capital", 1L, 1, null);
+        Country testCountry1 = new Country("name1", "capital1", 1L, 1, null);
+        Country testCountry2 = new Country("name2", "capital2", 1L, 1, null);
 
         Country[] testCountries = {
                 testCountry1,

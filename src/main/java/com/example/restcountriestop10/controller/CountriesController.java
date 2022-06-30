@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/top10")
-public class countriesController {
+public class CountriesController {
 
     private final MainCountriesService mainCountriesService;
 
