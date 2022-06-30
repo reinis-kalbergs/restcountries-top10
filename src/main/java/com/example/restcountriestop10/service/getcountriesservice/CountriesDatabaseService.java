@@ -4,6 +4,7 @@ import com.example.restcountriestop10.model.Country;
 import com.example.restcountriestop10.model.CountryInDatabase;
 import com.example.restcountriestop10.repository.CountryRepository;
 import com.example.restcountriestop10.repository.CurrencyRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.List;
 @Service
 @Transactional
 @ConditionalOnProperty(prefix = "top10countries", name = "retrieve-from", havingValue = "database")
+@Slf4j
 public class CountriesDatabaseService extends AbstractCountriesService {
 
     private final CountryRepository countryRepository;
@@ -45,6 +47,7 @@ public class CountriesDatabaseService extends AbstractCountriesService {
         if (countryRepository.count() < 1) {
             return true;
         }
+        log.info("Retrieving data from database");
         LocalDateTime dateTimeADayAgo = LocalDateTime.now().minusDays(1);
         return countryRepository.existsByLastUpdatedBefore(dateTimeADayAgo);
     }

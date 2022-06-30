@@ -2,6 +2,7 @@ package com.example.restcountriestop10.service.getcountriesservice;
 
 import com.example.restcountriestop10.model.Country;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestClientException;
@@ -12,6 +13,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @RequiredArgsConstructor
+@Slf4j
 public abstract class AbstractCountriesService {
 
     private final Environment environment;
@@ -29,6 +31,7 @@ public abstract class AbstractCountriesService {
 
     private Country[] retrieveEuCountries() {
         final String URL_EU_COUNTRIES = environment.getProperty("restcountries.v2.url") + "/regionalbloc/eu";
+        log.info("Retrieving data from api");
         return Arrays.stream(Objects.requireNonNull(restTemplate.getForObject(URL_EU_COUNTRIES, Country[].class)))
                 .filter(Country::filterCountriesWithoutAreaOrPopulation)
                 .toArray(Country[]::new);
