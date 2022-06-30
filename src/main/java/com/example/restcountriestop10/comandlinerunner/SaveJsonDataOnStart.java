@@ -19,7 +19,7 @@ import java.util.List;
 public class SaveJsonDataOnStart implements CommandLineRunner {
 
     private final CountriesJsonService countriesJsonService;
-    private final String FULL_PATH = System.getProperty("user.dir") + "\\src\\main\\resources\\data\\EuCountries.json";
+    private final String FULL_PATH = "./src/main/resources/data/EuCountries.json";
     private final ObjectMapper objectMapper;
 
     @Override

@@ -1,7 +1,6 @@
-package com.example.restcountriestop10.service;
+package com.example.restcountriestop10.service.getcountriesservice;
 
 import com.example.restcountriestop10.model.Country;
-import com.example.restcountriestop10.service.getcountriesservice.CountriesRestService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,8 +40,8 @@ public class CountriesRestServiceTest {
 
     @Test
     void shouldReturnCountries() {
-        Country testCountry1 = new Country("name", "capital", 1L, 1, null);
-        Country testCountry2 = new Country("name", "capital", 1L, 1, null);
+        Country testCountry1 = new Country("name1", "capital1", 1L, 1, null);
+        Country testCountry2 = new Country("name2", "capital2", 1L, 1, null);
 
         Country[] testCountries = {
                 testCountry1,

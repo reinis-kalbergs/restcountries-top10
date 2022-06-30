@@ -17,7 +17,7 @@ import java.io.File;
 @Slf4j
 public class CountriesJsonService extends AbstractCountriesService {
 
-    private final String FULL_PATH = System.getProperty("user.dir") + "\\src\\main\\resources\\data\\EuCountries.json";
+    private final String FULL_PATH = "./src/main/resources/data/EuCountries.json";
     private final ObjectMapper objectMapper;
 
     public CountriesJsonService(Environment environment, RestTemplate restTemplate, ObjectMapper objectMapper) {
@@ -27,7 +27,7 @@ public class CountriesJsonService extends AbstractCountriesService {
 
     @Override
     public Country[] getAllEuCountries() {
-        log.info("Retrieving data from database");
+        log.info("Retrieving data from json file");
         try {
             return objectMapper.readValue(new File(FULL_PATH), Country[].class);
         } catch (Exception ex) {
